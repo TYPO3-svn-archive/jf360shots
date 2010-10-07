@@ -1,0 +1,20 @@
+
+/* begin the gestalt styles */
+.ui-gs {
+	display: inline-block; border: none;
+	*float: left;  /* IE7 won't apply inline-block to divs */
+}
+.ui-gs :focus { outline: none; }
+.ui-gs :focus::-moz-focus-inner { border-color: transparent; }
+
+.ui-gs-images {
+	position: relative; overflow: hidden;
+	width: 220px; height: 220px;
+}
+.ui-gs-images img { position: absolute; top: 0; left: 0; display: none; }
+.ui-gs-images .ui-gs-progressbar { z-index: 42; position: absolute; top: 10px; left: 10px; height: 10px; width: 200px; }
+
+.ui-gs-controls { margin: 3px auto 0; width: 220px; }
+.ui-gs-controls button {  margin: 0 1px; }
+.ui-gs-controls button.ui-gs-resize {  margin-left: 11px; }
+

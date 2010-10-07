@@ -1,0 +1,36 @@
+plugin.tx_jf360shots_pi1 {
+
+	# cat=plugin.tx_jf360shots/enable/010; type=boolean; label=jQuery noConflict: Use the noConflict methode
+	jQueryNoConflict = 0
+
+	# cat=plugin.tx_jf360shots/enable/020; type=boolean; label=Javascript in Footer: If set, the Javascript will be rendered in Footer
+	jsInFooter = 0
+
+	# cat=plugin.tx_jf360shots/enable/030; type=boolean; label=Minify Javascript: If set, the Javascript will be minified
+	jsMinify = 0
+
+	# cat=plugin.tx_jf360shots/enable/040; type=boolean; label=Javascript to Inline: If set, the Javascript will be inserted into the inlineJS, after this, its possible to put it into externel files (config.removeDefaultJS = external)
+	jsInline = 0
+
+	# cat=plugin.tx_jf360shots/enable/050; type=boolean; label=Minify CSS: If set, the CSS will be minified
+	cssMinify = 0
+
+
+
+	# cat=plugin.tx_jf360shots/file/010; type=file[html,htm,tmpl,txt]; label=HTML-Template file: Location of the used template
+	file.templateFile = EXT:jf360shots/res/tx_jf360shots_pi1.tmpl
+
+	# cat=plugin.tx_jf360shots/file/020; type=file[js]; label=JS-Template file: Location of the used template for JS
+	file.templateFileJS = EXT:jf360shots/res/tx_jf360shots_pi1.js
+
+	# cat=plugin.tx_jf360shots/file/030; type=file[css]; label=CSS file: CSS-File to include
+	file.cssFile = EXT:jf360shots/res/tx_jf360shots_pi1.css
+
+	# cat=plugin.tx_jf360shots/file/040; type=file[js]; label=jQuery Library: Location of the jQuery Lib
+	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.4.2.min.js
+
+	# cat=plugin.tx_jf360shots/file/050; type=file[js]; label=jQuery Gestalt: Location of the jQuery Gestalt
+	file.jQueryGestalt = EXT:jf360shots/res/jquery/js/jquery.gestalt-min.js
+
+}
+

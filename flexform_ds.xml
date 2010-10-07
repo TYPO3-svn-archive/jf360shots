@@ -1,0 +1,162 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.sheet_general</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<imagepath>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imagepath</label>
+							<config>
+								<type>input</type>
+								<size>30</size>
+								<eval>trim</eval>
+								<wizards>
+									<_PADDING>2</_PADDING>
+									<link>
+										<type>popup</type>
+										<title>Folder Selector</title>
+										<icon>link_popup.gif</icon>
+										<script>EXT:rgfolderselector/browse_links.php</script>
+										<JSopenParams>height=400,width=400,status=0,menubar=0,scrollbars=1</JSopenParams>
+									</link>
+								</wizards>
+							</config>
+						</TCEforms>
+					</imagepath>
+				</el>
+			</ROOT>
+		</general>
+		<settings>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.sheet_settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<controls>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.controls</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</controls>
+					<keyboard>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.keyboard</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</keyboard>
+					<mouse>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.mouse</label>
+							<config>
+								<type>input</type>
+								<size>3</size>
+								<max>3</max>
+								<default>10</default>
+								<eval>integer</eval>
+								<range>
+									<lower>2</lower>
+									<upper>50</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</mouse>
+					<animate>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.0</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.1</numIndex>
+										<numIndex index="1">once</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.2</numIndex>
+										<numIndex index="1">true</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.3</numIndex>
+										<numIndex index="1">false</numIndex>
+									</numIndex>
+								</items>
+								<size>1</size>
+								<maxitems>1</maxitems>
+							</config>
+						</TCEforms>
+					</animate>
+					<framerate>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.framerate</label>
+							<config>
+								<type>input</type>
+								<size>2</size>
+								<max>2</max>
+								<default>15</default>
+								<eval>integer</eval>
+								<range>
+									<lower>3</lower>
+									<upper>60</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</framerate>
+					<wait>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.wait</label>
+							<config>
+								<type>input</type>
+								<size>4</size>
+								<max>4</max>
+								<default>60</default>
+								<eval>integer</eval>
+								<range>
+									<lower>0</lower>
+									<upper>6000</upper>
+								</range>
+							</config>
+						</TCEforms>
+					</wait>
+				</el>
+			</ROOT>
+		</settings>
+		<special>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.sheet_special</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<options>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.options</label>
+							<config>
+								<type>text</type>
+								<wrap>OFF</wrap>
+								<cols>48</cols>
+								<rows>10</rows>
+							</config>
+						</TCEforms>
+					</options>
+				</el>
+			</ROOT>
+		</special>
+	</sheets>
+</T3DataStructure>

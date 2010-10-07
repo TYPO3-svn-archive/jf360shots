@@ -1,0 +1,33 @@
+plugin.tx_jf360shots_pi1 {
+
+	jQueryNoConflict = {$plugin.tx_jf360shots_pi1.jQueryNoConflict}
+	jsInFooter = {$plugin.tx_jf360shots_pi1.jsInFooter}
+	jsMinify = {$plugin.tx_jf360shots_pi1.jsMinify}
+	jsInline = {$plugin.tx_jf360shots_pi1.jsInline}
+	cssMinify = {$plugin.tx_jf360shots_pi1.cssMinify}
+
+	templateFile = {$plugin.tx_jf360shots_pi1.file.templateFile}
+	templateFileJS = {$plugin.tx_jf360shots_pi1.file.templateFileJS}
+	cssFile = {$plugin.tx_jf360shots_pi1.file.cssFile}
+	jQueryLibrary = {$plugin.tx_jf360shots_pi1.file.jQueryLibrary}
+	jQueryGestalt = {$plugin.tx_jf360shots_pi1.file.jQueryGestalt}
+
+	template = TEXT
+	template {
+		value = <div id="{register:key}"></div>
+		insertData = 1
+	}
+
+	config {
+		imagepath = EXT:jf360shots/res/images/
+		controls = 1
+		keyboard = 1
+		mouse = 20
+		animate = once
+		framerate = 15
+		wait = 60
+		options (
+		)
+	}
+}
+
