@@ -16,12 +16,22 @@ plugin.tx_jf360shots_pi1 {
 
 	template = TEXT
 	template {
-		value = <div id="{register:key}"></div>
+		value = <div id="{register:key}" style="width:{register:biggestimagewidth}px;"></div>
 		insertData = 1
+	}
+
+	image {
+		file {
+			import.data = register:file
+			width.data = register:imagewidth
+			height.data = register:imageheight
+		}
 	}
 
 	config {
 		imagepath = EXT:jf360shots/res/images/
+		imagewidth = 612m
+		imageheight = 480m
 		controls = 1
 		keyboard = 1
 		mouse = 20

@@ -9,6 +9,8 @@
 			<label index="tt_content.list_type_pi1">Cloud-Zoom</label>
 			<label index="tt_content.pi_flexform.sheet_general">General</label>
 			<label index="tt_content.pi_flexform.imagepath">Image path</label>
+			<label index="tt_content.pi_flexform.imagewidth">Width</label>
+			<label index="tt_content.pi_flexform.imageheight">Height</label>
 			<label index="tt_content.pi_flexform.sheet_settings">Settings</label>
 			<label index="tt_content.pi_flexform.controls">Controls</label>
 			<label index="tt_content.pi_flexform.keyboard">Keyboard</label>

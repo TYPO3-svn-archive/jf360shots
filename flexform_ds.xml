@@ -30,6 +30,28 @@
 							</config>
 						</TCEforms>
 					</imagepath>
+					<imagewidth>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imagewidth</label>
+							<config>
+								<type>input</type>
+								<size>16</size>
+								<max>16</max>
+								<eval>string</eval>
+							</config>
+						</TCEforms>
+					</imagewidth>
+					<imageheight>
+						<TCEforms>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imageheight</label>
+							<config>
+								<type>input</type>
+								<size>16</size>
+								<max>16</max>
+								<eval>string</eval>
+							</config>
+						</TCEforms>
+					</imageheight>
 				</el>
 			</ROOT>
 		</general>

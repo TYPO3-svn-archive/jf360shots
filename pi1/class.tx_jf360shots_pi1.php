@@ -94,6 +94,12 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			if ($this->lConf['imagepath']) {
 				$this->conf['config.']['imagepath'] = $this->lConf['imagepath'];
 			}
+			if ($this->lConf['imagewidth']) {
+				$this->conf['config.']['imagewidth'] = $this->lConf['imagewidth'];
+			}
+			if ($this->lConf['imageheight']) {
+				$this->conf['config.']['imageheight'] = $this->lConf['imageheight'];
+			}
 			$this->conf['config.']['controls']  = $this->lConf['controls'];
 			$this->conf['config.']['keyboard']  = $this->lConf['keyboard'];
 			$this->conf['config.']['mouse']     = $this->lConf['mouse'];
@@ -136,13 +142,31 @@ class tx_jf360shots_pi1 extends tslib_pibase
 
 		// set all options
 		$imagepath = str_replace(PATH_site, '', t3lib_div::getFileAbsFileName($this->conf['config.']['imagepath']));
-		$images = t3lib_div::getFilesInDir($imagepath, '', true, 1, 'txt');
+		$images_temp = t3lib_div::getFilesInDir($imagepath, '', true, 1, '');
 		$imageList = array();
-		if (count($images) > 0) {
+		if (count($images_temp) > 0) {
+			foreach ($images_temp as $key => $image) {
+				$pathinfo = pathinfo($image);
+				if (t3lib_div::inList('gif,png,jpeg,jpg', strtolower($pathinfo['extension']))) {
+					$images[$key] = $image;
+				}
+			}
+			$GLOBALS['TSFE']->register['key'] = $this->contentKey;
+			$GLOBALS['TSFE']->register['imagewidth']  = $this->conf['config.']['imagewidth'];
+			$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
+			$GLOBALS['TSFE']->register['biggestimagewidth']  = 0;
+			$GLOBALS['TSFE']->register['biggestimageheight'] = 0;
+			$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] = 0;
+			$GLOBALS['TSFE']->register['IMAGE_COUNT'] = count($images);
 			foreach ($images as $key => $image) {
-				$image = trim($image);
-				if (! preg_match('/^\./', $image)) {
-					$imageList[] = t3lib_div::quoteJSvalue($image);
+				$GLOBALS['TSFE']->register['file'] = trim($image);
+				$imageList[] = t3lib_div::quoteJSvalue($this->cObj->IMG_RESOURCE($this->conf['image.']));
+				$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] ++;
+				if ($GLOBALS['TSFE']->register['biggestimagewidth'] < $GLOBALS['TSFE']->lastImgResourceInfo[0]){
+					$GLOBALS['TSFE']->register['biggestimagewidth'] = $GLOBALS['TSFE']->lastImgResourceInfo[0];
+				}
+				if ($GLOBALS['TSFE']->register['biggestimageheight'] < $GLOBALS['TSFE']->lastImgResourceInfo[1]){
+					$GLOBALS['TSFE']->register['biggestimageheight'] = $GLOBALS['TSFE']->lastImgResourceInfo[1];
 				}
 			}
 		}
