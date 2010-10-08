@@ -32,6 +32,7 @@ plugin.tx_jf360shots_pi1 {
 		imagepath = EXT:jf360shots/res/images/
 		imagewidth = 612m
 		imageheight = 480m
+		bigsizepage =
 		controls = 1
 		keyboard = 1
 		mouse = 20

@@ -12,6 +12,7 @@
 				<el>
 					<imagepath>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imagepath</label>
 							<config>
 								<type>input</type>
@@ -32,6 +33,7 @@
 					</imagepath>
 					<imagewidth>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imagewidth</label>
 							<config>
 								<type>input</type>
@@ -43,6 +45,7 @@
 					</imagewidth>
 					<imageheight>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.imageheight</label>
 							<config>
 								<type>input</type>
@@ -52,6 +55,20 @@
 							</config>
 						</TCEforms>
 					</imageheight>
+					<bigsizepage>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.bigsizepage</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+							</config>
+						</TCEforms>
+					</bigsizepage>
 				</el>
 			</ROOT>
 		</general>
@@ -64,6 +81,7 @@
 				<el>
 					<controls>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.controls</label>
 							<config>
 								<type>check</type>
@@ -73,6 +91,7 @@
 					</controls>
 					<keyboard>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.keyboard</label>
 							<config>
 								<type>check</type>
@@ -82,6 +101,7 @@
 					</keyboard>
 					<mouse>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.mouse</label>
 							<config>
 								<type>input</type>
@@ -98,6 +118,7 @@
 					</mouse>
 					<animate>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate</label>
 							<config>
 								<type>select</type>
@@ -126,6 +147,7 @@
 					</animate>
 					<framerate>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.framerate</label>
 							<config>
 								<type>input</type>
@@ -142,6 +164,7 @@
 					</framerate>
 					<wait>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.wait</label>
 							<config>
 								<type>input</type>
@@ -168,6 +191,7 @@
 				<el>
 					<options>
 						<TCEforms>
+							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.options</label>
 							<config>
 								<type>text</type>

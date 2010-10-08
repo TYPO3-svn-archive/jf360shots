@@ -100,11 +100,12 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			if ($this->lConf['imageheight']) {
 				$this->conf['config.']['imageheight'] = $this->lConf['imageheight'];
 			}
-			$this->conf['config.']['controls']  = $this->lConf['controls'];
-			$this->conf['config.']['keyboard']  = $this->lConf['keyboard'];
-			$this->conf['config.']['mouse']     = $this->lConf['mouse'];
+			$this->conf['config.']['bigsizepage'] = $this->lConf['bigsizepage'];
+			$this->conf['config.']['controls']    = $this->lConf['controls'];
+			$this->conf['config.']['keyboard']    = $this->lConf['keyboard'];
+			$this->conf['config.']['mouse']       = $this->lConf['mouse'];
 			if ($this->lConf['animate']) {
-				$this->conf['config.']['animate']   = $this->lConf['animate'];
+				$this->conf['config.']['animate'] = $this->lConf['animate'];
 			}
 			$this->conf['config.']['framerate'] = $this->lConf['framerate'];
 			$this->conf['config.']['wait']      = $this->lConf['wait'];
@@ -171,7 +172,10 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			}
 		}
 		$options[] = "images: [".implode(", ", $imageList)."]";
-		if ($this->conf['config.']['controls']) {
+		if (is_numeric($this->conf['config.']['bigsizepage'])) {
+			$options[] = "controls: 'resizeable'";
+			$options[] = "largeUrl2: ".t3lib_div::quoteJSvalue($this->cObj->typolink_URL(array('parameter' => $this->conf['config.']['bigsizepage'])));
+		} elseif ($this->conf['config.']['controls']) {
 			$options[] = "controls: true";
 		}
 		$options[] = "keyboard: ".($this->conf['config.']['keyboard'] ? 'true' : 'false');
@@ -203,7 +207,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		// set the key
 		$markerArray = array();
 		$markerArray["KEY"] = $this->contentKey;
-		$markerArray["OPTIONS"] = (count($options) > 0 ? "{".implode(", ", $options)."}" : "");
+		$markerArray["OPTIONS"] = (count($options) > 0 ? "{\n		".implode(",\n		", $options)."\n	}" : "");
 		// set the markers
 		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
 
