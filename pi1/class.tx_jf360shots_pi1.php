@@ -155,7 +155,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$options[] = "mouse: {$this->conf['config.']['mouse']}";
 		}
 		if (in_array($this->conf['config.']['animate'], array('true', 'once'))) {
-			$options[] = "animate: {$this->conf['config.']['animate']}";
+			$options[] = "animate: " . ($this->conf['config.']['animate'] == 'once' ? "'once'" : $this->conf['config.']['animate']);
 		}
 		if ($this->conf['config.']['framerate'] > 0) {
 			$options[] = "framerate: {$this->conf['config.']['framerate']}";

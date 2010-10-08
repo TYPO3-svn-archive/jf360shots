@@ -1,2 +1,2 @@
 script=res/jquery/js/jquery.gestalt-min.js
-components=jQuery,Core,Button,Progressbar
+components=jQuery,Core,Widget,Mouse,Button,Progressbar
