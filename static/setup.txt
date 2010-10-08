@@ -10,6 +10,8 @@ plugin.tx_jf360shots_pi1 {
 	templateFileJS = {$plugin.tx_jf360shots_pi1.file.templateFileJS}
 	cssFile = {$plugin.tx_jf360shots_pi1.file.cssFile}
 	jQueryLibrary = {$plugin.tx_jf360shots_pi1.file.jQueryLibrary}
+	jQueryUI = {$plugin.tx_jf360shots_pi1.file.jQueryUI}
+	jQueryUIstyle = {$plugin.tx_jf360shots_pi1.file.jQueryUIstyle}
 	jQueryGestalt = {$plugin.tx_jf360shots_pi1.file.jQueryGestalt}
 
 	template = TEXT

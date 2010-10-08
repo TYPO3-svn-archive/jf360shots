@@ -185,10 +185,19 @@ class tx_jf360shots_pi1 extends tslib_pibase
 
 		$this->addJS($jQueryNoConflict . $templateCode);
 
+		// checks if t3jquery is loaded
+		if (T3JQUERY === true) {
+			tx_t3jquery::addJqJS();
+		} else {
+			$this->addJsFile($this->conf['jQueryLibrary'], true);
+			$this->addJsFile($this->conf['jQueryUI']);
+		}
+
 		// define the js file
 		$this->addJsFile($this->conf['jQueryGestalt']);
 
 		// define the css file
+		$this->addCssFile($this->conf['jQueryUIstyle']);
 		$this->addCssFile($this->conf['cssFile']);
 
 		// Add the ressources
@@ -207,12 +216,6 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	 */
 	function addResources()
 	{
-		// checks if t3jquery is loaded
-		if (T3JQUERY === true) {
-			tx_t3jquery::addJqJS();
-		} else {
-			$this->addJsFile($this->conf['jQueryLibrary'], true);
-		}
 		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
 			$pagerender = $GLOBALS['TSFE']->getPageRenderer();
 		}
