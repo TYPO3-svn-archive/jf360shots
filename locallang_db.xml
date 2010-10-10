@@ -6,7 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tt_content.list_type_pi1">Cloud-Zoom</label>
+			<label index="tt_content.list_type_pi1">360 degrees shots</label>
 			<label index="tt_content.pi_flexform.sheet_general">General</label>
 			<label index="tt_content.pi_flexform.imagepath">Image path</label>
 			<label index="tt_content.pi_flexform.imagewidth">Width</label>
