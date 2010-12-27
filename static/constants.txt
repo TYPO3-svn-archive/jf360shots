@@ -27,7 +27,7 @@ plugin.tx_jf360shots_pi1 {
 	file.cssFile = EXT:jf360shots/res/tx_jf360shots_pi1.css
 
 	# cat=plugin.tx_jf360shots/file/040; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.4.3.min.js
+	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.4.4.min.js
 
 	# cat=plugin.tx_jf360shots/file/050; type=file[js]; label=jQuery UI: Location of the jQuery UI
 	file.jQueryUI = EXT:jf360shots/res/jquery/js/jquery-ui-1.8.5.min.js
