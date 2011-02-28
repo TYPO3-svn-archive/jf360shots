@@ -101,23 +101,24 @@
 							</config>
 						</TCEforms>
 					</keyboard>
+
 					<mouse>
 						<TCEforms>
-							<exclude>1</exclude>
 							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.mouse</label>
 							<config>
-								<type>input</type>
-								<size>3</size>
-								<max>3</max>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSpinner]]></userFunc>
+								<width>100</width>
 								<default>10</default>
-								<eval>integer</eval>
 								<range>
 									<lower>2</lower>
 									<upper>50</upper>
 								</range>
+								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
 					</mouse>
+
 					<animate>
 						<TCEforms>
 							<exclude>1</exclude>
