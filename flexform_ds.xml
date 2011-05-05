@@ -24,7 +24,7 @@
 										<type>popup</type>
 										<title>Folder Selector</title>
 										<icon>link_popup.gif</icon>
-										<script>EXT:rgfolderselector/browse_links.php</script>
+										<script>browse_links.php?mode=folder</script>
 										<JSopenParams>height=400,width=400,status=0,menubar=0,scrollbars=1</JSopenParams>
 									</link>
 								</wizards>
