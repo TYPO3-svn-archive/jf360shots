@@ -27,13 +27,13 @@ plugin.tx_jf360shots_pi1 {
 	file.cssFile = EXT:jf360shots/res/tx_jf360shots_pi1.css
 
 	# cat=plugin.tx_jf360shots/file/040; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.5.2.min.js
+	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.6.1.min.js
 
 	# cat=plugin.tx_jf360shots/file/050; type=file[js]; label=jQuery UI: Location of the jQuery UI
-	file.jQueryUI = EXT:jf360shots/res/jquery/js/jquery-ui-1.8.12.min.js
+	file.jQueryUI = EXT:jf360shots/res/jquery/js/jquery-ui-1.8.13.min.js
 
 	# cat=plugin.tx_jf360shots/file/060; type=file[css]; label=jQuery UI style: Location of the jQuery UI CSS
-	file.jQueryUIstyle = EXT:jf360shots/res/jquery/css/theme-1.8.10/jquery-ui-1.8.12.css
+	file.jQueryUIstyle = EXT:jf360shots/res/jquery/css/theme-1.8.13/jquery-ui-1.8.13.css
 
 	# cat=plugin.tx_jf360shots/file/070; type=file[js]; label=jQuery Gestalt: Location of the jQuery Gestalt
 	file.jQueryGestalt = EXT:jf360shots/res/jquery/js/jquery.gestalt-min.js
