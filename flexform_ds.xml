@@ -55,22 +55,6 @@
 							</config>
 						</TCEforms>
 					</imageheight>
-<!--
-					<bigsizepage>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.bigsizepage</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<size>1</size>
-								<minitems>0</minitems>
-								<maxitems>1</maxitems>
-							</config>
-						</TCEforms>
-					</bigsizepage>
--->
 				</el>
 			</ROOT>
 		</general>
@@ -81,107 +65,105 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<controls>
+					<method>
 						<TCEforms>
 							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.controls</label>
-							<config>
-								<type>check</type>
-								<default>1</default>
-							</config>
-						</TCEforms>
-					</controls>
-					<keyboard>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.keyboard</label>
-							<config>
-								<type>check</type>
-								<default>1</default>
-							</config>
-						</TCEforms>
-					</keyboard>
-
-					<mouse>
-						<TCEforms>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.mouse</label>
-							<config>
-								<form_type>user</form_type>
-								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSpinner]]></userFunc>
-								<width>100</width>
-								<default>10</default>
-								<range>
-									<lower>2</lower>
-									<upper>50</upper>
-								</range>
-								<emptyValue>1</emptyValue>
-							</config>
-						</TCEforms>
-					</mouse>
-
-					<animate>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate</label>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method</label>
 							<config>
 								<type>select</type>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<default></default>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.0</numIndex>
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.from_ts</numIndex>
 										<numIndex index="1"></numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.1</numIndex>
-										<numIndex index="1">once</numIndex>
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method.click</numIndex>
+										<numIndex index="1">click</numIndex>
 									</numIndex>
 									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.2</numIndex>
-										<numIndex index="1">true</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.animate.I.3</numIndex>
-										<numIndex index="1">false</numIndex>
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method.mousemove</numIndex>
+										<numIndex index="1">mousemove</numIndex>
 									</numIndex>
 								</items>
+							</config>
+						</TCEforms>
+					</method>
+					<direction>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction</label>
+							<config>
+								<type>select</type>
 								<size>1</size>
 								<maxitems>1</maxitems>
+								<default></default>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.from_ts</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction.forward</numIndex>
+										<numIndex index="1">forward</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction.backward</numIndex>
+										<numIndex index="1">backward</numIndex>
+									</numIndex>
+								</items>
 							</config>
 						</TCEforms>
-					</animate>
-					<framerate>
+					</direction>
+					<cycle>
 						<TCEforms>
 							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.framerate</label>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.cycle</label>
 							<config>
 								<type>input</type>
-								<size>2</size>
-								<max>2</max>
-								<default>15</default>
-								<eval>integer</eval>
-								<range>
-									<lower>3</lower>
-									<upper>60</upper>
-								</range>
-							</config>
-						</TCEforms>
-					</framerate>
-					<wait>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.wait</label>
-							<config>
-								<type>input</type>
-								<size>4</size>
-								<max>4</max>
-								<default>60</default>
+								<size>3</size>
+								<max>3</max>
+								<default></default>
 								<eval>integer</eval>
 								<range>
 									<lower>0</lower>
-									<upper>6000</upper>
+									<upper>100</upper>
 								</range>
 							</config>
 						</TCEforms>
-					</wait>
+					</cycle>
+					<resetMargin>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.resetMargin</label>
+							<config>
+								<type>input</type>
+								<size>3</size>
+								<max>3</max>
+								<default></default>
+								<eval>integer</eval>
+							</config>
+						</TCEforms>
+					</resetMargin>
+					<sensibility>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.sensibility</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
+								<width>500</width>
+								<range>
+									<lower>0</lower>
+									<upper>3</upper>
+								</range>
+								<decimalPrecision>2</decimalPrecision>
+								<emptyValue>1</emptyValue>
+							</config>
+						</TCEforms>
+					</sensibility>
 				</el>
 			</ROOT>
 		</settings>

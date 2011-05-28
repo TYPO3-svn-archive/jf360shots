@@ -13,18 +13,21 @@
 			<label index="tt_content.pi_flexform.imageheight">Height</label>
 			<label index="tt_content.pi_flexform.bigsizepage">Page with large version</label>
 			<label index="tt_content.pi_flexform.sheet_settings">Settings</label>
-			<label index="tt_content.pi_flexform.controls">Controls</label>
-			<label index="tt_content.pi_flexform.keyboard">Keyboard</label>
-			<label index="tt_content.pi_flexform.mouse">Mouse</label>
-			<label index="tt_content.pi_flexform.animate">Animate</label>
-			<label index="tt_content.pi_flexform.animate.I.0">From Typoscript</label>
-			<label index="tt_content.pi_flexform.animate.I.1">once</label>
-			<label index="tt_content.pi_flexform.animate.I.2">on</label>
-			<label index="tt_content.pi_flexform.animate.I.3">off</label>
-			<label index="tt_content.pi_flexform.framerate">Frames per secound</label>
-			<label index="tt_content.pi_flexform.wait">Wait</label>
+			<label index="tt_content.pi_flexform.method">method</label>
+			<label index="tt_content.pi_flexform.method.click">Click</label>
+			<label index="tt_content.pi_flexform.method.mousemove">Mousemove</label>
+			<label index="tt_content.pi_flexform.direction">Direction</label>
+			<label index="tt_content.pi_flexform.direction.forward">Forward</label>
+			<label index="tt_content.pi_flexform.direction.backward">Backward</label>
+			<label index="tt_content.pi_flexform.cycle">Cycle</label>
+			<label index="tt_content.pi_flexform.resetMargin">Reset margin</label>
+			<label index="tt_content.pi_flexform.sensibility">Sensibility</label>
 			<label index="tt_content.pi_flexform.sheet_special">Special</label>
 			<label index="tt_content.pi_flexform.options">Enter own options</label>
+
+			<label index="tt_content.pi_flexform.from_ts">From Typoscript</label>
+			<label index="tt_content.pi_flexform.no">No</label>
+			<label index="tt_content.pi_flexform.yes">Yes</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

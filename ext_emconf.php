@@ -35,6 +35,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'cms' => '',
 			'php' => '5.0.0-5.3.99',
 			'typo3' => '4.3.0-4.5.99',
+			'jftcaforms' => '',
 		),
 		'conflicts' => array(
 		),

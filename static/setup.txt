@@ -8,15 +8,12 @@ plugin.tx_jf360shots_pi1 {
 
 	templateFile = {$plugin.tx_jf360shots_pi1.file.templateFile}
 	templateFileJS = {$plugin.tx_jf360shots_pi1.file.templateFileJS}
-	cssFile = {$plugin.tx_jf360shots_pi1.file.cssFile}
 	jQueryLibrary = {$plugin.tx_jf360shots_pi1.file.jQueryLibrary}
-	jQueryUI = {$plugin.tx_jf360shots_pi1.file.jQueryUI}
-	jQueryUIstyle = {$plugin.tx_jf360shots_pi1.file.jQueryUIstyle}
-	jQueryGestalt = {$plugin.tx_jf360shots_pi1.file.jQueryGestalt}
+	jQuery360 = {$plugin.tx_jf360shots_pi1.file.jQuery360}
 
 	template = TEXT
 	template {
-		value = <div id="{register:key}" style="width:{register:biggestimagewidth}px;"></div>
+		value = <img src="{register:firstimage}" id="{register:key}" style="width:{register:biggestimagewidth}px;height:{register:biggestimageheight}px;" />
 		insertData = 1
 	}
 
@@ -32,13 +29,11 @@ plugin.tx_jf360shots_pi1 {
 		imagepath = EXT:jf360shots/res/images/
 		imagewidth = 612m
 		imageheight = 480m
-		bigsizepage =
-		controls = 1
-		keyboard = 1
-		mouse = 20
-		animate = once
-		framerate = 15
-		wait = 60
+		method = click
+		cycle = 1
+		resetMargin = 0
+		direction = forward
+		sensibility = 0.35
 		options (
 		)
 	}

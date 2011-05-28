@@ -17,26 +17,14 @@ plugin.tx_jf360shots_pi1 {
 
 
 
-	# cat=plugin.tx_jf360shots/file/010; type=file[html,htm,tmpl,txt]; label=HTML-Template file: Location of the used template
-	file.templateFile = EXT:jf360shots/res/tx_jf360shots_pi1.tmpl
-
-	# cat=plugin.tx_jf360shots/file/020; type=file[js]; label=JS-Template file: Location of the used template for JS
+	# cat=plugin.tx_jf360shots/file/010; type=file[js]; label=JS-Template file: Location of the used template for JS
 	file.templateFileJS = EXT:jf360shots/res/tx_jf360shots_pi1.js
 
-	# cat=plugin.tx_jf360shots/file/030; type=file[css]; label=CSS file: CSS-File to include
-	file.cssFile = EXT:jf360shots/res/tx_jf360shots_pi1.css
-
-	# cat=plugin.tx_jf360shots/file/040; type=file[js]; label=jQuery Library: Location of the jQuery Lib
+	# cat=plugin.tx_jf360shots/file/020; type=file[js]; label=jQuery Library: Location of the jQuery Lib
 	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.6.1.min.js
 
-	# cat=plugin.tx_jf360shots/file/050; type=file[js]; label=jQuery UI: Location of the jQuery UI
-	file.jQueryUI = EXT:jf360shots/res/jquery/js/jquery-ui-1.8.13.min.js
-
-	# cat=plugin.tx_jf360shots/file/060; type=file[css]; label=jQuery UI style: Location of the jQuery UI CSS
-	file.jQueryUIstyle = EXT:jf360shots/res/jquery/css/theme-1.8.13/jquery-ui-1.8.13.css
-
-	# cat=plugin.tx_jf360shots/file/070; type=file[js]; label=jQuery Gestalt: Location of the jQuery Gestalt
-	file.jQueryGestalt = EXT:jf360shots/res/jquery/js/jquery.gestalt-min.js
+	# cat=plugin.tx_jf360shots/file/030; type=file[js]; label=jQuery Gestalt: Location of the jQuery Gestalt
+	file.jQuery360 = EXT:jf360shots/res/jquery/js/jquery.threesixty-0.5.js
 
 }
 

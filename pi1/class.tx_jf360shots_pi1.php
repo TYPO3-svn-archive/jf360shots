@@ -81,14 +81,13 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$this->lConf['imagepath']   = $this->getFlexformData('general', 'imagepath');
 			$this->lConf['imagewidth']  = $this->getFlexformData('general', 'imagewidth');
 			$this->lConf['imageheight'] = $this->getFlexformData('general', 'imageheight');
-			
-			$this->lConf['controls']  = $this->getFlexformData('settings', 'controls');
-			$this->lConf['keyboard']  = $this->getFlexformData('settings', 'keyboard');
-			$this->lConf['mouse']     = $this->getFlexformData('settings', 'mouse');
-			$this->lConf['animate']   = $this->getFlexformData('settings', 'animate');
-			$this->lConf['framerate'] = $this->getFlexformData('settings', 'framerate');
-			$this->lConf['wait']      = $this->getFlexformData('settings', 'wait');
-			
+
+			$this->lConf['method']      = $this->getFlexformData('settings', 'method');
+			$this->lConf['direction']   = $this->getFlexformData('settings', 'direction');
+			$this->lConf['cycle']       = $this->getFlexformData('settings', 'cycle');
+			$this->lConf['resetMargin'] = $this->getFlexformData('settings', 'resetMargin');
+			$this->lConf['sensibility'] = $this->getFlexformData('settings', 'sensibility');
+
 			$this->lConf['options'] = $this->getFlexformData('special', 'options');
 
 			// define the key of the element
@@ -104,15 +103,22 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			if ($this->lConf['imageheight']) {
 				$this->conf['config.']['imageheight'] = $this->lConf['imageheight'];
 			}
-			$this->conf['config.']['bigsizepage'] = $this->lConf['bigsizepage'];
-			$this->conf['config.']['controls']    = $this->lConf['controls'];
-			$this->conf['config.']['keyboard']    = $this->lConf['keyboard'];
-			$this->conf['config.']['mouse']       = $this->lConf['mouse'];
-			if ($this->lConf['animate']) {
-				$this->conf['config.']['animate'] = $this->lConf['animate'];
+			if ($this->lConf['method']) {
+				$this->conf['config.']['method'] = $this->lConf['method'];
 			}
-			$this->conf['config.']['framerate'] = $this->lConf['framerate'];
-			$this->conf['config.']['wait']      = $this->lConf['wait'];
+			if ($this->lConf['direction']) {
+				$this->conf['config.']['direction'] = $this->lConf['direction'];
+			}
+			if ($this->lConf['cycle'] > 0) {
+				$this->conf['config.']['cycle'] = $this->lConf['cycle'];
+			}
+			if ($this->lConf['resetMargin'] > 0) {
+				$this->conf['config.']['resetMargin'] = $this->lConf['resetMargin'];
+			}
+			if ($this->lConf['sensibility']) {
+				$this->conf['config.']['sensibility'] = $this->lConf['sensibility'];
+			}
+
 			$this->conf['config.']['options']   = $this->lConf['options'];
 		}
 
@@ -161,12 +167,17 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
 			$GLOBALS['TSFE']->register['biggestimagewidth']  = 0;
 			$GLOBALS['TSFE']->register['biggestimageheight'] = 0;
-			$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] = 0;
+			$GLOBALS['TSFE']->register['IMAGE_ID'] = 0;
 			$GLOBALS['TSFE']->register['IMAGE_COUNT'] = count($images);
+			$imageList = array();
 			foreach ($images as $key => $image) {
 				$GLOBALS['TSFE']->register['file'] = trim($image);
-				$imageList[] = t3lib_div::quoteJSvalue($this->cObj->IMG_RESOURCE($this->conf['image.']));
-				$GLOBALS['TSFE']->register['IMAGE_NUM_CURRENT'] ++;
+				$imageRes = $this->cObj->IMG_RESOURCE($this->conf['image.']);
+				if (count($imageList) == 0) {
+					$GLOBALS['TSFE']->register['firstimage'] = $imageRes;
+				}
+				$imageList[] = t3lib_div::quoteJSvalue($imageRes);
+				$GLOBALS['TSFE']->register['IMAGE_ID'] ++;
 				if ($GLOBALS['TSFE']->register['biggestimagewidth'] < $GLOBALS['TSFE']->lastImgResourceInfo[0]){
 					$GLOBALS['TSFE']->register['biggestimagewidth'] = $GLOBALS['TSFE']->lastImgResourceInfo[0];
 				}
@@ -175,26 +186,24 @@ class tx_jf360shots_pi1 extends tslib_pibase
 				}
 			}
 		}
-		$options[] = "images: [".implode(", ", $imageList)."]";
-		if (is_numeric($this->conf['config.']['bigsizepage'])) {
-			$options[] = "controls: 'resizeable'";
-			$options[] = "largeUrl2: ".t3lib_div::quoteJSvalue($this->cObj->typolink_URL(array('parameter' => $this->conf['config.']['bigsizepage'])));
-		} elseif ($this->conf['config.']['controls']) {
-			$options[] = "controls: true";
+		
+		$options['images'] = "images: [".implode(", ", $imageList)."]";
+		if ($this->conf['config.']['method']) {
+			$options['method'] = "method: '".$this->conf['config.']['method']."'";
 		}
-		$options[] = "keyboard: ".($this->conf['config.']['keyboard'] ? 'true' : 'false');
-		if ($this->conf['config.']['mouse'] > 0) {
-			$options[] = "mouse: {$this->conf['config.']['mouse']}";
+		if ($this->conf['config.']['direction']) {
+			$options['direction'] = "direction: '".$this->conf['config.']['direction']."'";
 		}
-		if (in_array($this->conf['config.']['animate'], array('true', 'once'))) {
-			$options[] = "animate: " . ($this->conf['config.']['animate'] == 'once' ? "'once'" : $this->conf['config.']['animate']);
+		if ($this->conf['config.']['cycle'] > 0) {
+			$options['cycle'] = "cycle: ".$this->conf['config.']['cycle'];
 		}
-		if ($this->conf['config.']['framerate'] > 0) {
-			$options[] = "framerate: {$this->conf['config.']['framerate']}";
+		if ($this->conf['config.']['resetMargin'] > 0) {
+			$options['resetMargin'] = "resetMargin: ".$this->conf['config.']['resetMargin'];
 		}
-		if ($this->conf['config.']['wait'] > 0) {
-			$options[] = "wait: {$this->conf['config.']['wait']}";
+		if ($this->conf['config.']['sensibility'] > 0) {
+			$options['sensibility'] = "sensibility: ".$this->conf['config.']['sensibility'];
 		}
+
 		// overwrite all options if set
 		if (trim($this->conf['options'])) {
 			$options = array($this->conf['options']);
@@ -222,15 +231,10 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			tx_t3jquery::addJqJS();
 		} else {
 			$this->addJsFile($this->conf['jQueryLibrary'], true);
-			$this->addJsFile($this->conf['jQueryUI']);
 		}
 
 		// define the js file
-		$this->addJsFile($this->conf['jQueryGestalt']);
-
-		// define the css file
-		$this->addCssFile($this->conf['jQueryUIstyle']);
-		$this->addCssFile($this->conf['cssFile']);
+		$this->addJsFile($this->conf['jQuery360']);
 
 		// Add the ressources
 		$this->addResources();

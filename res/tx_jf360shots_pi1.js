@@ -1,9 +1,6 @@
 
 <!-- ###TEMPLATE_JS### begin -->
 jQuery(document).ready(function() {
-	var options = jQuery.queryParams(###OPTIONS###);
-	jQuery(function() {
-		jQuery('####KEY###').gestalt(options);
-	});
+	jQuery('####KEY###').threesixty(###OPTIONS###);
 });
 <!-- ###TEMPLATE_JS### end -->
