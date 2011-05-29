@@ -1,6 +1,6 @@
 
 <!-- ###TEMPLATE_JS### begin -->
 jQuery(document).ready(function() {
-	jQuery('####KEY###').threesixty(###OPTIONS###);
+	jQuery('####KEY###').reel(###OPTIONS###);
 });
 <!-- ###TEMPLATE_JS### end -->
