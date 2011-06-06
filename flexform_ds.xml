@@ -65,105 +65,116 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<method>
+					<frame>
 						<TCEforms>
 							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method</label>
-							<config>
-								<type>select</type>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<default></default>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.from_ts</numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method.click</numIndex>
-										<numIndex index="1">click</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.method.mousemove</numIndex>
-										<numIndex index="1">mousemove</numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</method>
-					<direction>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction</label>
-							<config>
-								<type>select</type>
-								<size>1</size>
-								<maxitems>1</maxitems>
-								<default></default>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.from_ts</numIndex>
-										<numIndex index="1"></numIndex>
-									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction.forward</numIndex>
-										<numIndex index="1">forward</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.direction.backward</numIndex>
-										<numIndex index="1">backward</numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</direction>
-					<cycle>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.cycle</label>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.frame</label>
 							<config>
 								<type>input</type>
-								<size>3</size>
-								<max>3</max>
-								<default></default>
-								<eval>integer</eval>
-								<range>
-									<lower>0</lower>
-									<upper>100</upper>
-								</range>
-							</config>
-						</TCEforms>
-					</cycle>
-					<resetMargin>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.resetMargin</label>
-							<config>
-								<type>input</type>
-								<size>3</size>
-								<max>3</max>
+								<size>4</size>
+								<max>4</max>
 								<default></default>
 								<eval>integer</eval>
 							</config>
 						</TCEforms>
-					</resetMargin>
-					<sensibility>
+					</frame>
+					<delay>
 						<TCEforms>
 							<exclude>1</exclude>
-							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.sensibility</label>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.delay</label>
+							<config>
+								<type>input</type>
+								<size>4</size>
+								<max>4</max>
+								<default></default>
+								<eval>integer</eval>
+							</config>
+						</TCEforms>
+					</delay>
+					<speed>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.speed</label>
 							<config>
 								<form_type>user</form_type>
 								<userFunc><![CDATA[EXT:jftcaforms/lib/class.tx_jftcaforms_tceFunc.php:&tx_jftcaforms_tceFunc->getExtSlider]]></userFunc>
-								<width>500</width>
+								<width>400</width>
 								<range>
 									<lower>0</lower>
-									<upper>3</upper>
+									<upper>2</upper>
 								</range>
 								<decimalPrecision>2</decimalPrecision>
 								<emptyValue>1</emptyValue>
 							</config>
 						</TCEforms>
-					</sensibility>
+					</speed>
+					<loops>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.loops</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>1</checked>
+							</config>
+						</TCEforms>
+					</loops>
+					<clockwise>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.clockwise</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>0</checked>
+							</config>
+						</TCEforms>
+					</clockwise>
+					<draggable>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.draggable</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>1</checked>
+							</config>
+						</TCEforms>
+					</draggable>
+					<throwable>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.throwable</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>1</checked>
+							</config>
+						</TCEforms>
+					</throwable>
+					<clickfree>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.clickfree</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>0</checked>
+							</config>
+						</TCEforms>
+					</clickfree>
+					<wheelable>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.wheelable</label>
+							<config>
+								<form_type>user</form_type>
+								<userFunc><![CDATA[EXT:jf360shots/lib/class.tx_jf360shots_tceFunc.php:&tx_jf360shots_tceFunc->getCheckbox]]></userFunc>
+								<checked>0</checked>
+							</config>
+						</TCEforms>
+					</wheelable>
+
 				</el>
 			</ROOT>
 		</settings>

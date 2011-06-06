@@ -46,9 +46,9 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	var $prefixId      = 'tx_jf360shots_pi1';		// Same as class name
 	var $scriptRelPath = 'pi1/class.tx_jf360shots_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'jf360shots';	// The extension key.
-	var $pi_checkCHash = true;
+	var $pi_checkCHash = TRUE;
 	var $lConf = array();
-	var $contentKey = null;
+	var $contentKey = NULL;
 	var $jsFiles = array();
 	var $js = array();
 	var $css = array();
@@ -82,11 +82,15 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$this->lConf['imagewidth']  = $this->getFlexformData('general', 'imagewidth');
 			$this->lConf['imageheight'] = $this->getFlexformData('general', 'imageheight');
 
-			$this->lConf['method']      = $this->getFlexformData('settings', 'method');
-			$this->lConf['direction']   = $this->getFlexformData('settings', 'direction');
-			$this->lConf['cycle']       = $this->getFlexformData('settings', 'cycle');
-			$this->lConf['resetMargin'] = $this->getFlexformData('settings', 'resetMargin');
-			$this->lConf['sensibility'] = $this->getFlexformData('settings', 'sensibility');
+			$this->lConf['frame']     = $this->getFlexformData('settings', 'frame');
+			$this->lConf['delay']     = $this->getFlexformData('settings', 'delay');
+			$this->lConf['speed']     = $this->getFlexformData('settings', 'speed');
+			$this->lConf['loops']     = $this->getFlexformData('settings', 'loops');
+			$this->lConf['clockwise'] = $this->getFlexformData('settings', 'clockwise');
+			$this->lConf['draggable'] = $this->getFlexformData('settings', 'draggable');
+			$this->lConf['throwable'] = $this->getFlexformData('settings', 'throwable');
+			$this->lConf['clickfree'] = $this->getFlexformData('settings', 'clickfree');
+			$this->lConf['wheelable'] = $this->getFlexformData('settings', 'wheelable');
 
 			$this->lConf['options'] = $this->getFlexformData('special', 'options');
 
@@ -103,20 +107,33 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			if ($this->lConf['imageheight']) {
 				$this->conf['config.']['imageheight'] = $this->lConf['imageheight'];
 			}
-			if ($this->lConf['method']) {
-				$this->conf['config.']['method'] = $this->lConf['method'];
+
+			if ($this->lConf['frame'] > 0) {
+				$this->conf['config.']['frame'] = $this->lConf['frame'];
 			}
-			if ($this->lConf['direction']) {
-				$this->conf['config.']['direction'] = $this->lConf['direction'];
+			if ($this->lConf['delay'] >= 0) {
+				$this->conf['config.']['delay'] = $this->lConf['delay'];
 			}
-			if ($this->lConf['cycle'] > 0) {
-				$this->conf['config.']['cycle'] = $this->lConf['cycle'];
+			if ($this->lConf['speed'] > 0) {
+				$this->conf['config.']['speed'] = $this->lConf['speed'];
 			}
-			if ($this->lConf['resetMargin'] > 0) {
-				$this->conf['config.']['resetMargin'] = $this->lConf['resetMargin'];
+			if ($this->lConf['loops'] < 2) {
+				$this->conf['config.']['loops'] = $this->lConf['loops'];
 			}
-			if ($this->lConf['sensibility']) {
-				$this->conf['config.']['sensibility'] = $this->lConf['sensibility'];
+			if ($this->lConf['clockwise'] < 2) {
+				$this->conf['config.']['clockwise'] = $this->lConf['clockwise'];
+			}
+			if ($this->lConf['draggable'] < 2) {
+				$this->conf['config.']['draggable'] = $this->lConf['draggable'];
+			}
+			if ($this->lConf['throwable'] < 2) {
+				$this->conf['config.']['throwable'] = $this->lConf['throwable'];
+			}
+			if ($this->lConf['clickfree'] < 2) {
+				$this->conf['config.']['clickfree'] = $this->lConf['clickfree'];
+			}
+			if ($this->lConf['wheelable'] < 2) {
+				$this->conf['config.']['wheelable'] = $this->lConf['wheelable'];
 			}
 
 			$this->conf['config.']['options']   = $this->lConf['options'];
@@ -186,22 +203,23 @@ class tx_jf360shots_pi1 extends tslib_pibase
 				}
 			}
 		}
-		
+
 		$options['images'] = "images: [".implode(", ", $imageList)."]";
-		if ($this->conf['config.']['method']) {
-			$options['method'] = "method: '".$this->conf['config.']['method']."'";
+		$options['frames'] = "frames: ".count($imageList);
+		if ($this->conf['config.']['free'] > 0) {
+			$options['free'] = "free: ".$this->conf['config.']['clickfree'];
 		}
-		if ($this->conf['config.']['direction']) {
-			$options['direction'] = "direction: '".$this->conf['config.']['direction']."'";
+		if (is_numeric($this->conf['config.']['delay']) && $this->conf['config.']['speed'] > 0) {
+			$options['delay'] = "delay: ".$this->conf['config.']['delay'];
+			$options['speed'] = "speed: ".$this->conf['config.']['speed'];
 		}
-		if ($this->conf['config.']['cycle'] > 0) {
-			$options['cycle'] = "cycle: ".$this->conf['config.']['cycle'];
-		}
-		if ($this->conf['config.']['resetMargin'] > 0) {
-			$options['resetMargin'] = "resetMargin: ".$this->conf['config.']['resetMargin'];
-		}
-		if ($this->conf['config.']['sensibility'] > 0) {
-			$options['sensibility'] = "sensibility: ".$this->conf['config.']['sensibility'];
+		$options['loops']     = "loops: ".($this->conf['config.']['loops'] ? 'true':'false');
+		$options['clockwise'] = "cw: ".($this->conf['config.']['clockwise'] ? 'true':'false');
+		$options['draggable'] = "draggable: ".($this->conf['config.']['draggable'] ? 'true':'false');
+		$options['throwable'] = "throwable: ".($this->conf['config.']['throwable'] ? 'true':'false');
+		$options['clickfree'] = "clickfree: ".($this->conf['config.']['clickfree'] ? 'true':'false');
+		if ($this->conf['config.']['wheelable']) {
+			$options['wheelable'] = "wheelable: true";
 		}
 
 		// overwrite all options if set
@@ -227,10 +245,16 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		$this->addJS($jQueryNoConflict . $templateCode);
 
 		// checks if t3jquery is loaded
-		if (T3JQUERY === true) {
+		if (T3JQUERY === TRUE) {
 			tx_t3jquery::addJqJS();
+			if ($this->conf['config.']['wheelable'] && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) <= 1010003) {
+				$this->addJsFile($this->conf['jQueryMouseWheel']);
+			}
 		} else {
-			$this->addJsFile($this->conf['jQueryLibrary'], true);
+			$this->addJsFile($this->conf['jQueryLibrary'], TRUE);
+			if ($this->conf['config.']['wheelable']) {
+				$this->addJsFile($this->conf['jQueryMouseWheel']);
+			}
 		}
 
 		// define the js file
@@ -257,14 +281,14 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		}
 		// Fix moveJsFromHeaderToFooter (add all scripts to the footer)
 		if ($GLOBALS['TSFE']->config['config']['moveJsFromHeaderToFooter']) {
-			$allJsInFooter = true;
+			$allJsInFooter = TRUE;
 		} else {
-			$allJsInFooter = false;
+			$allJsInFooter = FALSE;
 		}
 		// add all defined JS files
 		if (count($this->jsFiles) > 0) {
 			foreach ($this->jsFiles as $jsToLoad) {
-				if (T3JQUERY === true) {
+				if (T3JQUERY === TRUE) {
 					$conf = array(
 						'jsfile' => $jsToLoad,
 						'tofooter' => ($this->conf['jsInFooter'] || $allJsInFooter),
@@ -301,7 +325,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			}
 			$conf = array();
 			$conf['jsdata'] = $temp_js;
-			if (T3JQUERY === true && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) >= 1002000) {
+			if (T3JQUERY === TRUE && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) >= 1002000) {
 				$conf['tofooter'] = ($this->conf['jsInFooter'] || $allJsInFooter);
 				$conf['jsminify'] = $this->conf['jsMinify'];
 				$conf['jsinline'] = $this->conf['jsInline'];
@@ -322,9 +346,9 @@ class tx_jf360shots_pi1 extends tslib_pibase
 						$temp_js = t3lib_div::minifyJavaScript($temp_js);
 					}
 					if ($this->conf['jsInFooter'] || $allJsInFooter) {
-						$GLOBALS['TSFE']->additionalFooterData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
+						$GLOBALS['TSFE']->additionalFooterData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, TRUE);
 					} else {
-						$GLOBALS['TSFE']->additionalHeaderData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, true);
+						$GLOBALS['TSFE']->additionalHeaderData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, TRUE);
 					}
 				}
 			}
@@ -378,10 +402,10 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	 * @param boolean $first
 	 * @return void
 	 */
-	function addJsFile($script="", $first=false)
+	function addJsFile($script="", $first=FALSE)
 	{
 		if ($this->getPath($script) && ! in_array($script, $this->jsFiles)) {
-			if ($first === true) {
+			if ($first === TRUE) {
 				$this->jsFiles = array_merge(array($script), $this->jsFiles);
 			} else {
 				$this->jsFiles[] = $script;
@@ -450,27 +474,27 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	 * @param boolean $devlog
 	 * @return string
 	 */
-	protected function getFlexformData($sheet='', $name='', $devlog=true)
+	protected function getFlexformData($sheet='', $name='', $devlog=TRUE)
 	{
 		$this->pi_initPIflexForm();
 		$piFlexForm = $this->cObj->data['pi_flexform'];
 		if (! isset($piFlexForm['data'])) {
-			if ($devlog === true) {
+			if ($devlog === TRUE) {
 				t3lib_div::devLog("Flexform Data not set", $this->extKey, 1);
 			}
-			return null;
+			return NULL;
 		}
 		if (! isset($piFlexForm['data'][$sheet])) {
-			if ($devlog === true) {
+			if ($devlog === TRUE) {
 				t3lib_div::devLog("Flexform sheet '{$sheet}' not defined", $this->extKey, 1);
 			}
-			return null;
+			return NULL;
 		}
 		if (! isset($piFlexForm['data'][$sheet]['lDEF'][$name])) {
-			if ($devlog === true) {
+			if ($devlog === TRUE) {
 				t3lib_div::devLog("Flexform Data [{$sheet}][{$name}] does not exist", $this->extKey, 1);
 			}
-			return null;
+			return NULL;
 		}
 		if (isset($piFlexForm['data'][$sheet]['lDEF'][$name]['vDEF'])) {
 			return $this->pi_getFFvalue($piFlexForm, $name, $sheet);

@@ -6,10 +6,10 @@ plugin.tx_jf360shots_pi1 {
 	jsInline = {$plugin.tx_jf360shots_pi1.jsInline}
 	cssMinify = {$plugin.tx_jf360shots_pi1.cssMinify}
 
-	templateFile = {$plugin.tx_jf360shots_pi1.file.templateFile}
 	templateFileJS = {$plugin.tx_jf360shots_pi1.file.templateFileJS}
 	jQueryLibrary = {$plugin.tx_jf360shots_pi1.file.jQueryLibrary}
 	jQuery360 = {$plugin.tx_jf360shots_pi1.file.jQuery360}
+	jQueryMouseWheel = {$plugin.tx_jf360shots_pi1.file.jQueryMouseWheel}
 
 	template = TEXT
 	template {
@@ -29,13 +29,24 @@ plugin.tx_jf360shots_pi1 {
 		imagepath = EXT:jf360shots/res/images/
 		imagewidth = 612m
 		imageheight = 480m
-		method = click
-		cycle = 1
-		resetMargin = 0
-		direction = forward
-		sensibility = 0.35
+
+		frame = 1
+		delay = 
+		speed = 0
+		loops = 1
+		cw = 0
+		draggable = 1
+		throwable = 1
+		clickfree = 0
+		wheelable = 0
+
 		options (
 		)
 	}
+	_CSS_DEFAULT_STYLE (
+.tx-jf360shots-pi1 {
+	margin-bottom: .5em;
+}
+	)
 }
 

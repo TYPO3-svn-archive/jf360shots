@@ -13,17 +13,19 @@
 			<label index="tt_content.pi_flexform.imageheight">Height</label>
 			<label index="tt_content.pi_flexform.bigsizepage">Page with large version</label>
 			<label index="tt_content.pi_flexform.sheet_settings">Settings</label>
-			<label index="tt_content.pi_flexform.method">method</label>
-			<label index="tt_content.pi_flexform.method.click">Click</label>
-			<label index="tt_content.pi_flexform.method.mousemove">Mousemove</label>
-			<label index="tt_content.pi_flexform.direction">Direction</label>
-			<label index="tt_content.pi_flexform.direction.forward">Forward</label>
-			<label index="tt_content.pi_flexform.direction.backward">Backward</label>
-			<label index="tt_content.pi_flexform.cycle">Cycle</label>
-			<label index="tt_content.pi_flexform.resetMargin">Reset margin</label>
-			<label index="tt_content.pi_flexform.sensibility">Sensibility</label>
+
+			<label index="tt_content.pi_flexform.frame">Start with frame</label>
+			<label index="tt_content.pi_flexform.delay">Delay for autoplay</label>
+			<label index="tt_content.pi_flexform.speed">Speed for autoplay</label>
+			<label index="tt_content.pi_flexform.loops">Loop</label>
+			<label index="tt_content.pi_flexform.clockwise">Rotate clockwise</label>
+			<label index="tt_content.pi_flexform.draggable">Draggable</label>
+			<label index="tt_content.pi_flexform.throwable">Throw animation</label>
+			<label index="tt_content.pi_flexform.clickfree">Use Moseover-event</label>
+			<label index="tt_content.pi_flexform.wheelable">Use Wheel</label>
+
 			<label index="tt_content.pi_flexform.sheet_special">Special</label>
-			<label index="tt_content.pi_flexform.options">Enter own options</label>
+			<label index="tt_content.pi_flexform.options">Enter own options (see http://jquery.vostrel.cz/reel)</label>
 
 			<label index="tt_content.pi_flexform.from_ts">From Typoscript</label>
 			<label index="tt_content.pi_flexform.no">No</label>

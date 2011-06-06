@@ -23,8 +23,10 @@ plugin.tx_jf360shots_pi1 {
 	# cat=plugin.tx_jf360shots/file/020; type=file[js]; label=jQuery Library: Location of the jQuery Lib
 	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.6.1.min.js
 
-	# cat=plugin.tx_jf360shots/file/030; type=file[js]; label=jQuery Gestalt: Location of the jQuery Gestalt
-	file.jQuery360 = EXT:jf360shots/res/jquery/js/jquery.threesixty-0.5.js
+	# cat=plugin.tx_jf360shots/file/030; type=file[js]; label=jQuery Gestalt: Location of the jQuery Reel
+	file.jQuery360 = EXT:jf360shots/res/jquery/js/jquery.reel-1.1.3.min.js
 
+	# cat=plugin.tx_jf360shots/file/040; type=file[js]; label=Mousewheel: Location of the Mousewheel
+	file.jQueryMouseWheel = EXT:jf360shots/res/jquery/js/jquery.mousewheel-3.0.4.min.js
 }
 

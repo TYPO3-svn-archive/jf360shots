@@ -1,0 +1,7 @@
+
+# cat=basic/enable/20; type=boolean; label=Enable select instead of checkbox: If set, most of checkboxes will turn into selectboxes, so you can choose "from TS"
+useSelectInsteadCheckbox = 0
+
+
+# cat=basic/dev/1000; type=user[EXT:jf360shots/lib/class.tx_jf360shots_tsparserext.php:tx_jf360shots_tsparserext->displayMessage]; label=Updater
+updateMessage = 0
