@@ -21,7 +21,7 @@ plugin.tx_jf360shots_pi1 {
 	file.templateFileJS = EXT:jf360shots/res/tx_jf360shots_pi1.js
 
 	# cat=plugin.tx_jf360shots/file/020; type=file[js]; label=jQuery Library: Location of the jQuery Lib
-	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.6.1.min.js
+	file.jQueryLibrary = EXT:jf360shots/res/jquery/js/jquery-1.6.4.min.js
 
 	# cat=plugin.tx_jf360shots/file/030; type=file[js]; label=jQuery Gestalt: Location of the jQuery Reel
 	file.jQuery360 = EXT:jf360shots/res/jquery/js/jquery.reel-1.1.3.min.js
