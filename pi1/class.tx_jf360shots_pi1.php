@@ -28,11 +28,7 @@
  */
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
-
-if (t3lib_extMgm::isLoaded('t3jquery')) {
-	require_once(t3lib_extMgm::extPath('t3jquery').'class.tx_t3jquery.php');
-}
-
+require_once(t3lib_extMgm::extPath('jf360shots').'lib/class.tx_jf360shots_pagerenderer.php');
 
 /**
  * Plugin 'Multiple Content' for the 'jf360shots' extension.
@@ -43,20 +39,21 @@ if (t3lib_extMgm::isLoaded('t3jquery')) {
  */
 class tx_jf360shots_pi1 extends tslib_pibase
 {
-	var $prefixId      = 'tx_jf360shots_pi1';		// Same as class name
-	var $scriptRelPath = 'pi1/class.tx_jf360shots_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'jf360shots';	// The extension key.
-	var $pi_checkCHash = TRUE;
-	var $lConf = array();
-	var $contentKey = NULL;
-	var $jsFiles = array();
-	var $js = array();
-	var $css = array();
-	var $images = array();
-	var $captions = array();
-	var $piFlexForm = array();
-	var $imageDir = 'uploads/tx_jf360shots/';
-	var $type = 'normal';
+	public $prefixId      = 'tx_jf360shots_pi1';
+	public $scriptRelPath = 'pi1/class.tx_jf360shots_pi1.php';
+	public $extKey        = 'jf360shots';
+	public $pi_checkCHash = TRUE;
+	private $lConf = array();
+	private $contentKey = NULL;
+	private $jsFiles = array();
+	private $js = array();
+	private $css = array();
+	private $images = array();
+	private $captions = array();
+	private $piFlexForm = array();
+	private $imageDir = 'uploads/tx_jf360shots/';
+	private $type = 'normal';
+	private $pagerenderer = NULL;
 
 	/**
 	 * The main method of the PlugIn
@@ -65,7 +62,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	 * @param	array		$conf: The PlugIn configuration
 	 * @return	The content that is displayed on the website
 	 */
-	function main($content, $conf)
+	public function main($content, $conf)
 	{
 		$this->conf = $conf;
 		$this->pi_setPiVarDefaults();
@@ -79,9 +76,12 @@ class tx_jf360shots_pi1 extends tslib_pibase
 
 			// It's a content, all data from flexform
 			
-			$this->lConf['imagepath']   = $this->getFlexformData('general', 'imagepath');
-			$this->lConf['imagewidth']  = $this->getFlexformData('general', 'imagewidth');
-			$this->lConf['imageheight'] = $this->getFlexformData('general', 'imageheight');
+			$this->lConf['view'] = $this->getFlexformData('general', 'view');
+			
+			$this->lConf['imagepath']     = $this->getFlexformData('general', 'imagepath', ($this->lConf['view'] != 'folder'));
+			$this->lConf['panoramaImage'] = $this->getFlexformData('general', 'panoramaImage', ($this->lConf['view'] != 'panorama'));
+			$this->lConf['imagewidth']    = $this->getFlexformData('general', 'imagewidth');
+			$this->lConf['imageheight']   = $this->getFlexformData('general', 'imageheight');
 
 			$this->lConf['frame']     = $this->getFlexformData('settings', 'frame');
 			$this->lConf['delay']     = $this->getFlexformData('settings', 'delay');
@@ -93,14 +93,21 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$this->lConf['clickfree'] = $this->getFlexformData('settings', 'clickfree');
 			$this->lConf['wheelable'] = $this->getFlexformData('settings', 'wheelable');
 
-			$this->lConf['options'] = $this->getFlexformData('special', 'options');
+			$this->lConf['options']         = $this->getFlexformData('special', 'options');
+			$this->lConf['optionsOverride'] = $this->getFlexformData('special', 'optionsOverride');
 
 			// define the key of the element
 			$this->contentKey .= "_c" . $this->cObj->data['uid'];
 			
 			// Override the config with flexform data
+			if ($this->lConf['view']) {
+				$this->conf['config.']['view'] = $this->lConf['view'];
+			}
 			if ($this->lConf['imagepath']) {
 				$this->conf['config.']['imagepath'] = $this->lConf['imagepath'];
+			}
+			if ($this->lConf['panoramaImage']) {
+				$this->conf['config.']['panoramaImage'] = $this->lConf['panoramaImage'];
 			}
 			if ($this->lConf['imagewidth']) {
 				$this->conf['config.']['imagewidth'] = $this->lConf['imagewidth'];
@@ -137,10 +144,15 @@ class tx_jf360shots_pi1 extends tslib_pibase
 				$this->conf['config.']['wheelable'] = $this->lConf['wheelable'];
 			}
 
-			$this->conf['config.']['options']   = $this->lConf['options'];
+			if ($this->lConf['options']) {
+				$this->conf['config.']['options'] = $this->lConf['options'];
+			}
+			if ($this->lConf['optionsOverride'] < 2) {
+				$this->conf['config.']['optionsOverride'] = $this->lConf['optionsOverride'];
+			}
 		}
 
-		return $this->pi_wrapInBaseClass($this->parseTemplate($this->conf['images'], false));
+		return $this->pi_wrapInBaseClass($this->parseTemplate($this->conf['images']));
 	}
 
 	/**
@@ -148,8 +160,11 @@ class tx_jf360shots_pi1 extends tslib_pibase
 	 * @param $data
 	 * @return string
 	 */
-	function parseTemplate($dir='')
+	public function parseTemplate($dir='')
 	{
+		$this->pagerenderer = t3lib_div::makeInstance('tx_jf360shots_pagerenderer');
+		$this->pagerenderer->setConf($this->conf);
+		
 		// define the directory of images
 		if ($dir == '') {
 			$dir = $this->imageDir;
@@ -167,46 +182,64 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			$jQueryNoConflict = "";
 		}
 
-		$options = array();
+		// set the actual view
+		$view = $this->conf['config.']['view'];
 
 		// set all options
-		$imagepath = str_replace(PATH_site, '', t3lib_div::getFileAbsFileName($this->conf['config.']['imagepath']));
-		$images_temp = t3lib_div::getFilesInDir($imagepath, '', true, 1, '');
-		$imageList = array();
-		if (count($images_temp) > 0) {
-			foreach ($images_temp as $key => $image) {
-				$pathinfo = pathinfo($image);
-				if (t3lib_div::inList('gif,png,jpeg,jpg', strtolower($pathinfo['extension']))) {
-					$images[$key] = $image;
-				}
+		$options = array();
+
+		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
+		$GLOBALS['TSFE']->register['imagewidth']  = $this->conf['config.']['imagewidth'];
+		$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
+
+		if ($view == 'panorama') {
+			if (t3lib_div::getFileAbsFileName($dir . $this->conf['config.']['panoramaImage'])) {
+				$GLOBALS['TSFE']->register['file'] = trim($dir . $this->conf['config.']['panoramaImage']);
+			} else {
+				$GLOBALS['TSFE']->register['file'] = trim($this->conf['config.']['panoramaImage']);
 			}
-			$GLOBALS['TSFE']->register['key'] = $this->contentKey;
-			$GLOBALS['TSFE']->register['imagewidth']  = $this->conf['config.']['imagewidth'];
-			$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
-			$GLOBALS['TSFE']->register['biggestimagewidth']  = 0;
-			$GLOBALS['TSFE']->register['biggestimageheight'] = 0;
-			$GLOBALS['TSFE']->register['IMAGE_ID'] = 0;
-			$GLOBALS['TSFE']->register['IMAGE_COUNT'] = count($images);
+			$imageRes   = $this->cObj->IMG_RESOURCE($this->conf['views.'][$view.'.']['image.']);
+			$options['image'] = "image: '" . $imageRes . "'";
+			$options['stitched'] = "stitched: ".$GLOBALS['TSFE']->lastImgResourceInfo[0];
+			// generating the preview image
+			$previewRes = $this->cObj->IMG_RESOURCE($this->conf['views.'][$view.'.']['previewimage.']);
+			$GLOBALS['TSFE']->register['previewimage'] = $previewRes;
+		} else {
+			$imagepath = str_replace(PATH_site, '', t3lib_div::getFileAbsFileName($this->conf['config.']['imagepath']));
+			$images_temp = t3lib_div::getFilesInDir($imagepath, '', true, 1, '');
 			$imageList = array();
-			foreach ($images as $key => $image) {
-				$GLOBALS['TSFE']->register['file'] = trim($image);
-				$imageRes = $this->cObj->IMG_RESOURCE($this->conf['image.']);
-				if (count($imageList) == 0) {
-					$GLOBALS['TSFE']->register['firstimage'] = $imageRes;
+			if (count($images_temp) > 0) {
+				foreach ($images_temp as $key => $image) {
+					$pathinfo = pathinfo($image);
+					if (t3lib_div::inList('gif,png,jpeg,jpg', strtolower($pathinfo['extension']))) {
+						$images[$key] = $image;
+					}
 				}
-				$imageList[] = t3lib_div::quoteJSvalue($imageRes);
-				$GLOBALS['TSFE']->register['IMAGE_ID'] ++;
-				if ($GLOBALS['TSFE']->register['biggestimagewidth'] < $GLOBALS['TSFE']->lastImgResourceInfo[0]){
-					$GLOBALS['TSFE']->register['biggestimagewidth'] = $GLOBALS['TSFE']->lastImgResourceInfo[0];
-				}
-				if ($GLOBALS['TSFE']->register['biggestimageheight'] < $GLOBALS['TSFE']->lastImgResourceInfo[1]){
-					$GLOBALS['TSFE']->register['biggestimageheight'] = $GLOBALS['TSFE']->lastImgResourceInfo[1];
+				$GLOBALS['TSFE']->register['biggestimagewidth']  = 0;
+				$GLOBALS['TSFE']->register['biggestimageheight'] = 0;
+				$GLOBALS['TSFE']->register['IMAGE_ID'] = 0;
+				$GLOBALS['TSFE']->register['IMAGE_COUNT'] = count($images);
+				$imageList = array();
+				foreach ($images as $key => $image) {
+					$GLOBALS['TSFE']->register['file'] = trim($image);
+					$imageRes = $this->cObj->IMG_RESOURCE($this->conf['views.'][$view.'.']['image.']);
+					if (count($imageList) == 0) {
+						$GLOBALS['TSFE']->register['firstimage'] = $imageRes;
+					}
+					$imageList[] = t3lib_div::quoteJSvalue($imageRes);
+					$GLOBALS['TSFE']->register['IMAGE_ID'] ++;
+					if ($GLOBALS['TSFE']->register['biggestimagewidth'] < $GLOBALS['TSFE']->lastImgResourceInfo[0]){
+						$GLOBALS['TSFE']->register['biggestimagewidth'] = $GLOBALS['TSFE']->lastImgResourceInfo[0];
+					}
+					if ($GLOBALS['TSFE']->register['biggestimageheight'] < $GLOBALS['TSFE']->lastImgResourceInfo[1]){
+						$GLOBALS['TSFE']->register['biggestimageheight'] = $GLOBALS['TSFE']->lastImgResourceInfo[1];
+					}
 				}
 			}
+			$options['images'] = "images: [".implode(", ", $imageList)."]";
+			$options['frames'] = "frames: ".count($imageList);
 		}
 
-		$options['images'] = "images: [".implode(", ", $imageList)."]";
-		$options['frames'] = "frames: ".count($imageList);
 		if ($this->conf['config.']['free'] > 0) {
 			$options['free'] = "free: ".$this->conf['config.']['clickfree'];
 		}
@@ -219,13 +252,15 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		$options['draggable'] = "draggable: ".($this->conf['config.']['draggable'] ? 'true':'false');
 		$options['throwable'] = "throwable: ".($this->conf['config.']['throwable'] ? 'true':'false');
 		$options['clickfree'] = "clickfree: ".($this->conf['config.']['clickfree'] ? 'true':'false');
-		if ($this->conf['config.']['wheelable']) {
-			$options['wheelable'] = "wheelable: true";
-		}
+		$options['wheelable'] = "wheelable: ".($this->conf['config.']['wheelable'] ? 'true':'false');
 
 		// overwrite all options if set
-		if (trim($this->conf['options'])) {
-			$options = array($this->conf['options']);
+		if (trim($this->conf['config.']['options'])) {
+			if ($this->conf['config.']['optionsOverride']) {
+				$options = array($this->conf['config.']['options']);
+			} else {
+				$options['options'] = $this->conf['config.']['options'];
+			}
 		}
 
 		// The template for JS
@@ -243,229 +278,31 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		// set the markers
 		$templateCode = $this->cObj->substituteMarkerArray($templateCode, $markerArray, '###|###', 0);
 
-		$this->addJS($jQueryNoConflict . $templateCode);
+		$this->pagerenderer->addJS($jQueryNoConflict . $templateCode);
+
+		// define the js file
+		$this->pagerenderer->addJsFile($this->conf['jQuery360']);
 
 		// checks if t3jquery is loaded
 		if (T3JQUERY === TRUE) {
 			tx_t3jquery::addJqJS();
-			if ($this->conf['config.']['wheelable'] && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) <= 1010003) {
-				$this->addJsFile($this->conf['jQueryMouseWheel']);
+			if ($this->conf['config.']['wheelable'] && t3lib_div::int_from_ver($this->pagerenderer->getExtensionVersion('t3jquery')) <= 1010003) {
+				$this->pagerenderer->addJsFile($this->conf['jQueryMouseWheel']);
 			}
 		} else {
-			$this->addJsFile($this->conf['jQueryLibrary'], TRUE);
+			$this->pagerenderer->addJsFile($this->conf['jQueryLibrary'], TRUE);
 			if ($this->conf['config.']['wheelable']) {
-				$this->addJsFile($this->conf['jQueryMouseWheel']);
+				$this->pagerenderer->addJsFile($this->conf['jQueryMouseWheel']);
 			}
 		}
-
-		// define the js file
-		$this->addJsFile($this->conf['jQuery360']);
 
 		// Add the ressources
-		$this->addResources();
+		$this->pagerenderer->addResources();
 
 		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
-		$return_string = $this->cObj->cObjGetSingle($this->conf['template'], $this->conf['template.']);
+		$return_string = $this->cObj->cObjGetSingle($this->conf['views.'][$view.'.']['template'], $this->conf['views.'][$view.'.']['template.']);
 
 		return $return_string;
-	}
-
-	/**
-	 * Include all defined resources (JS / CSS)
-	 *
-	 * @return void
-	 */
-	function addResources()
-	{
-		if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-			$pagerender = $GLOBALS['TSFE']->getPageRenderer();
-		}
-		// Fix moveJsFromHeaderToFooter (add all scripts to the footer)
-		if ($GLOBALS['TSFE']->config['config']['moveJsFromHeaderToFooter']) {
-			$allJsInFooter = TRUE;
-		} else {
-			$allJsInFooter = FALSE;
-		}
-		// add all defined JS files
-		if (count($this->jsFiles) > 0) {
-			foreach ($this->jsFiles as $jsToLoad) {
-				if (T3JQUERY === TRUE) {
-					$conf = array(
-						'jsfile' => $jsToLoad,
-						'tofooter' => ($this->conf['jsInFooter'] || $allJsInFooter),
-						'jsminify' => $this->conf['jsMinify'],
-					);
-					tx_t3jquery::addJS('', $conf);
-				} else {
-					$file = $this->getPath($jsToLoad);
-					if ($file) {
-						if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-							if ($this->conf['jsInFooter'] || $allJsInFooter) {
-								$pagerender->addJsFooterFile($file, 'text/javascript', $this->conf['jsMinify']);
-							} else {
-								$pagerender->addJsFile($file, 'text/javascript', $this->conf['jsMinify']);
-							}
-						} else {
-							$temp_file = '<script type="text/javascript" src="'.$file.'"></script>';
-							if ($this->conf['jsInFooter'] || $allJsInFooter) {
-								$GLOBALS['TSFE']->additionalFooterData['jsFile_'.$this->extKey.'_'.$file] = $temp_file;
-							} else {
-								$GLOBALS['TSFE']->additionalHeaderData['jsFile_'.$this->extKey.'_'.$file] = $temp_file;
-							}
-						}
-					} else {
-						t3lib_div::devLog("'{$jsToLoad}' does not exists!", $this->extKey, 2);
-					}
-				}
-			}
-		}
-		// add all defined JS script
-		if (count($this->js) > 0) {
-			foreach ($this->js as $jsToPut) {
-				$temp_js .= $jsToPut;
-			}
-			$conf = array();
-			$conf['jsdata'] = $temp_js;
-			if (T3JQUERY === TRUE && t3lib_div::int_from_ver($this->getExtensionVersion('t3jquery')) >= 1002000) {
-				$conf['tofooter'] = ($this->conf['jsInFooter'] || $allJsInFooter);
-				$conf['jsminify'] = $this->conf['jsMinify'];
-				$conf['jsinline'] = $this->conf['jsInline'];
-				tx_t3jquery::addJS('', $conf);
-			} else {
-				// Add script only once
-				$hash = md5($temp_js);
-				if ($this->conf['jsInline']) {
-					$GLOBALS['TSFE']->inlineJS[$hash] = $temp_js;
-				} elseif (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-					if ($this->conf['jsInFooter'] || $allJsInFooter) {
-						$pagerender->addJsFooterInlineCode($hash, $temp_js, $this->conf['jsMinify']);
-					} else {
-						$pagerender->addJsInlineCode($hash, $temp_js, $this->conf['jsMinify']);
-					}
-				} else {
-					if ($this->conf['jsMinify']) {
-						$temp_js = t3lib_div::minifyJavaScript($temp_js);
-					}
-					if ($this->conf['jsInFooter'] || $allJsInFooter) {
-						$GLOBALS['TSFE']->additionalFooterData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, TRUE);
-					} else {
-						$GLOBALS['TSFE']->additionalHeaderData['js_'.$this->extKey.'_'.$hash] = t3lib_div::wrapJS($temp_js, TRUE);
-					}
-				}
-			}
-		}
-		// add all defined CSS files
-		if (count($this->cssFiles) > 0) {
-			foreach ($this->cssFiles as $cssToLoad) {
-				// Add script only once
-				$file = $this->getPath($cssToLoad);
-				if ($file) {
-					if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-						$pagerender->addCssFile($file, 'stylesheet', 'all', '', $this->conf['cssMinify']);
-					} else {
-						$GLOBALS['TSFE']->additionalHeaderData['cssFile_'.$this->extKey.'_'.$file] = '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />'.chr(10);
-					}
-				} else {
-					t3lib_div::devLog("'{$cssToLoad}' does not exists!", $this->extKey, 2);
-				}
-			}
-		}
-		// add all defined CSS Script
-		if (count($this->css) > 0) {
-			foreach ($this->css as $cssToPut) {
-				$temp_css .= $cssToPut;
-			}
-			$hash = md5($temp_css);
-			if (t3lib_div::int_from_ver(TYPO3_version) >= 4003000) {
-				$pagerender->addCssInlineBlock($hash, $temp_css, $this->conf['cssMinify']);
-			} else {
-				// addCssInlineBlock
-				$GLOBALS['TSFE']->additionalCSS['css_'.$this->extKey.'_'.$hash] .= $temp_css;
-			}
-		}
-	}
-
-	/**
-	 * Return the webbased path
-	 * 
-	 * @param string $path
-	 * return string
-	 */
-	function getPath($path="")
-	{
-		return $GLOBALS['TSFE']->tmpl->getFileName($path);
-	}
-
-	/**
-	 * Add additional JS file
-	 * 
-	 * @param string $script
-	 * @param boolean $first
-	 * @return void
-	 */
-	function addJsFile($script="", $first=FALSE)
-	{
-		if ($this->getPath($script) && ! in_array($script, $this->jsFiles)) {
-			if ($first === TRUE) {
-				$this->jsFiles = array_merge(array($script), $this->jsFiles);
-			} else {
-				$this->jsFiles[] = $script;
-			}
-		}
-	}
-
-	/**
-	 * Add JS to header
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addJS($script="")
-	{
-		if (! in_array($script, $this->js)) {
-			$this->js[] = $script;
-		}
-	}
-
-	/**
-	 * Add additional CSS file
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addCssFile($script="")
-	{
-		if ($this->getPath($script) && ! in_array($script, $this->cssFiles)) {
-			$this->cssFiles[] = $script;
-		}
-	}
-
-	/**
-	 * Add CSS to header
-	 * 
-	 * @param string $script
-	 * @return void
-	 */
-	function addCSS($script="")
-	{
-		if (! in_array($script, $this->css)) {
-			$this->css[] = $script;
-		}
-	}
-
-	/**
-	 * Returns the version of an extension (in 4.4 its possible to this with t3lib_extMgm::getExtensionVersion)
-	 * @param string $key
-	 * @return string
-	 */
-	function getExtensionVersion($key)
-	{
-		if (! t3lib_extMgm::isLoaded($key)) {
-			return '';
-		}
-		$_EXTKEY = $key;
-		include(t3lib_extMgm::extPath($key) . 'ext_emconf.php');
-		return $EM_CONF[$key]['version'];
 	}
 
 	/**

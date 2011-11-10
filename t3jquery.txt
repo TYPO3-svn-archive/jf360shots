@@ -1,2 +1,2 @@
-script=res/jquery/js/jquery.mousewheel-3.0.2.min.js,res/jquery/js/jquery.reel-1.1.3.js
+script=res/jquery/js/jquery.mousewheel-3.0.5.min.js,res/jquery/js/jquery.reel-1.1.3.js
 components=jQuery,Core,MouseWheel

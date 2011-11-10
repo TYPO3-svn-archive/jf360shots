@@ -11,22 +11,49 @@ plugin.tx_jf360shots_pi1 {
 	jQuery360 = {$plugin.tx_jf360shots_pi1.file.jQuery360}
 	jQueryMouseWheel = {$plugin.tx_jf360shots_pi1.file.jQueryMouseWheel}
 
-	template = TEXT
-	template {
-		value = <img src="{register:firstimage}" id="{register:key}" style="width:{register:biggestimagewidth}px;height:{register:biggestimageheight}px;" />
-		insertData = 1
-	}
-
-	image {
-		file {
-			import.data = register:file
-			width.data = register:imagewidth
-			height.data = register:imageheight
+	views {
+		folder {
+			image {
+				file {
+					import.data = register:file
+					width.data = register:imagewidth
+					height.data = register:imageheight
+				}
+			}
+			template = TEXT
+			template {
+				value = <img src="{register:firstimage}" id="{register:key}" style="width:{register:biggestimagewidth}px;height:{register:biggestimageheight}px;" />
+				insertData = 1
+			}
+		}
+		panorama {
+			image {
+				file {
+					import.data = register:file
+					height.data = register:imageheight
+				}
+			}
+			previewimage {
+				file {
+					import.data = register:file
+					width.data = register:imagewidth
+					width.wrap = |c-100
+					height.data = register:imageheight
+					height.wrap = |c
+				}
+			}
+			template = TEXT
+			template {
+				value = <img src="{register:previewimage}" id="{register:key}" style="width:{register:imagewidth}px;height:{register:imageheight}px;" />
+				insertData = 1
+			}
 		}
 	}
 
 	config {
+		view = folder
 		imagepath = EXT:jf360shots/res/images/
+		panoramaImage =
 		imagewidth = 612m
 		imageheight = 480m
 

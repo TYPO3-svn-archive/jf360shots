@@ -27,5 +27,5 @@ if (TYPO3_MODE == 'BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_jf360shots_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY).'pi1/class.tx_jf360shots_pi1_wizicon.php';
 }
 
-// require_once(t3lib_extMgm::extPath($_EXTKEY).'lib/class.tx_jf360shots_itemsProcFunc.php');
+require_once(t3lib_extMgm::extPath($_EXTKEY).'lib/class.tx_jf360shots_itemsProcFunc.php');
 ?>

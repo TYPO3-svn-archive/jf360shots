@@ -48,8 +48,8 @@ class tx_jf360shots_pi1_wizicon
 
 		$wizardItems['plugins_tx_jf360shots_pi1'] = array(
 			'icon'=>t3lib_extMgm::extRelPath('jf360shots').'pi1/ce_wiz.gif',
-			'title'=>$GLOBALS['LANG']->getLLL('pi1_title',$LL),
-			'description'=>$GLOBALS['LANG']->getLLL('pi1_plus_wiz_description',$LL),
+			'title'=>$GLOBALS['LANG']->getLLL('pi1_title', $LL),
+			'description'=>$GLOBALS['LANG']->getLLL('pi1_plus_wiz_description', $LL),
 			'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=jf360shots_pi1'
 		);
 

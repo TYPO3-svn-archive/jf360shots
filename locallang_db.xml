@@ -8,7 +8,11 @@
 		<languageKey index="default" type="array">
 			<label index="tt_content.list_type_pi1">360 degrees shots</label>
 			<label index="tt_content.pi_flexform.sheet_general">General</label>
+			<label index="tt_content.pi_flexform.view">Views</label>
+			<label index="tt_content.pi_flexform.view.I.0">Folder</label>
+			<label index="tt_content.pi_flexform.view.I.1">Panorama</label>
 			<label index="tt_content.pi_flexform.imagepath">Image path</label>
+			<label index="tt_content.pi_flexform.panoramaImage">Panorama image</label>
 			<label index="tt_content.pi_flexform.imagewidth">Width</label>
 			<label index="tt_content.pi_flexform.imageheight">Height</label>
 			<label index="tt_content.pi_flexform.bigsizepage">Page with large version</label>
@@ -26,6 +30,7 @@
 
 			<label index="tt_content.pi_flexform.sheet_special">Special</label>
 			<label index="tt_content.pi_flexform.options">Enter own options (see http://jquery.vostrel.cz/reel)</label>
+			<label index="tt_content.pi_flexform.optionsOverride">Override all options</label>
 
 			<label index="tt_content.pi_flexform.from_ts">From Typoscript</label>
 			<label index="tt_content.pi_flexform.no">No</label>

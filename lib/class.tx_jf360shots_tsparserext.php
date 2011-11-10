@@ -76,6 +76,7 @@ class tx_jf360shots_tsparserext
 	function checkConfig()
 	{
 		$confDefault = array(
+			'views',
 			'useSelectInsteadCheckbox',
 		);
 		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['jf360shots']);
