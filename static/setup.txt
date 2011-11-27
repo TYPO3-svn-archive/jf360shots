@@ -26,6 +26,34 @@ plugin.tx_jf360shots_pi1 {
 				insertData = 1
 			}
 		}
+
+		single {
+			image {
+				file {
+					import.data = register:file
+				}
+			}
+			previewimage {
+				file = GIFBUILDER
+				file {
+					XY = {register:imagewidth},{register:imageheight}
+					XY.insertData = 1
+					10 = IMAGE
+					10 {
+						file {
+							import.data = register:file
+						}
+						offset = 0,0
+					}
+				}
+			}
+			template = TEXT
+			template {
+				value = <img src="{register:previewimage}" id="{register:key}" style="width:{register:imagewidth}px;height:{register:imageheight}px;" />
+				insertData = 1
+			}
+		}
+
 		panorama {
 			image {
 				file {
@@ -53,6 +81,9 @@ plugin.tx_jf360shots_pi1 {
 	config {
 		view = folder
 		imagepath = EXT:jf360shots/res/images/
+		singleImage =
+		singleFrames =
+		singleColumns =
 		panoramaImage =
 		imagewidth = 612m
 		imageheight = 480m

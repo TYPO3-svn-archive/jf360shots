@@ -10,8 +10,12 @@
 			<label index="tt_content.pi_flexform.sheet_general">General</label>
 			<label index="tt_content.pi_flexform.view">Views</label>
 			<label index="tt_content.pi_flexform.view.I.0">Folder</label>
-			<label index="tt_content.pi_flexform.view.I.1">Panorama</label>
+			<label index="tt_content.pi_flexform.view.I.2">Single image</label>
+			<label index="tt_content.pi_flexform.view.I.1">Panorama image</label>
 			<label index="tt_content.pi_flexform.imagepath">Image path</label>
+			<label index="tt_content.pi_flexform.singleImage">Sequence image</label>
+			<label index="tt_content.pi_flexform.singleFrames">Frames</label>
+			<label index="tt_content.pi_flexform.singleColumns">Columns</label>
 			<label index="tt_content.pi_flexform.panoramaImage">Panorama image</label>
 			<label index="tt_content.pi_flexform.imagewidth">Width</label>
 			<label index="tt_content.pi_flexform.imageheight">Height</label>

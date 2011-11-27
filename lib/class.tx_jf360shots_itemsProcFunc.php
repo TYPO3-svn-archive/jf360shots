@@ -46,21 +46,25 @@ class tx_jf360shots_itemsProcFunc
 				'folder',
 			),
 			array(
+				$GLOBALS['LANG']->sL('LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.view.I.2'),
+				'single',
+			),
+			array(
 				$GLOBALS['LANG']->sL('LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.view.I.1'),
 				'panorama',
 			),
 		);
 		$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['jf360shots']);
-		$views = $confArr['views'];
+		$views = t3lib_div::trimExplode(',', $confArr['views']);
 		if (count($views) > 0) {
 			foreach ($views as $key => $val) {
 				if ($val) {
-					$availableViews[] = $key;
+					$availableViews[] = $val;
 				}
 			}
 		}
 		if (count($availableViews) < 1) {
-			$availableViews = array('folder','panorama');
+			$availableViews = array('folder', 'single', 'panorama');
 		}
 		$allowedViews = array();
 		foreach ($allViews as $key => $view) {

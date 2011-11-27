@@ -38,6 +38,53 @@
 							</config>
 						</TCEforms>
 					</imagepath>
+
+					<singleImage>
+						<TCEforms>
+							<displayCond>FIELD:view:IN:single</displayCond>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.singleImage</label>
+							<config>
+								<type>group</type>
+								<internal_type>file</internal_type>
+								<allowed>files</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>1</minitems>
+								<show_thumbs>1</show_thumbs>
+								<allowed>gif,jpg,jpeg,png</allowed>
+								<max_size>10240</max_size>
+								<uploadfolder>uploads/tx_jf360shots</uploadfolder>
+							</config>
+						</TCEforms>
+					</singleImage>
+					<singleFrames>
+						<TCEforms>
+							<displayCond>FIELD:view:IN:single</displayCond>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.singleFrames</label>
+							<config>
+								<type>input</type>
+								<size>4</size>
+								<max>4</max>
+								<default></default>
+								<eval>integer</eval>
+							</config>
+						</TCEforms>
+					</singleFrames>
+					<singleColumns>
+						<TCEforms>
+							<displayCond>FIELD:view:IN:single</displayCond>
+							<label>LLL:EXT:jf360shots/locallang_db.xml:tt_content.pi_flexform.singleColumns</label>
+							<config>
+								<type>input</type>
+								<size>4</size>
+								<max>4</max>
+								<default></default>
+								<eval>integer</eval>
+							</config>
+						</TCEforms>
+					</singleColumns>
+
+
 					<panoramaImage>
 						<TCEforms>
 							<displayCond>FIELD:view:IN:panorama</displayCond>
@@ -56,6 +103,7 @@
 							</config>
 						</TCEforms>
 					</panoramaImage>
+
 					<imagewidth>
 						<TCEforms>
 							<exclude>1</exclude>

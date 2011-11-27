@@ -1,5 +1,5 @@
-# cat=basic/enable/10; type=string; label=Available views: Defines all available views (folder,panorama)
-views = folder,panorama
+# cat=basic/enable/10; type=string; label=Available views: Defines all available views (folder,single,panorama)
+views = folder,single,panorama
 
 # cat=basic/enable/20; type=boolean; label=Enable select instead of checkbox: If set, most of checkboxes will turn into selectboxes, so you can choose "from TS"
 useSelectInsteadCheckbox = 0

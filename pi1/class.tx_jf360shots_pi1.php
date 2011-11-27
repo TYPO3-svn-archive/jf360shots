@@ -78,8 +78,11 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			
 			$this->lConf['view'] = $this->getFlexformData('general', 'view');
 			
-			$this->lConf['imagepath']     = $this->getFlexformData('general', 'imagepath', ($this->lConf['view'] != 'folder'));
-			$this->lConf['panoramaImage'] = $this->getFlexformData('general', 'panoramaImage', ($this->lConf['view'] != 'panorama'));
+			$this->lConf['imagepath']     = $this->getFlexformData('general', 'imagepath', ($this->lConf['view'] == 'folder'));
+			$this->lConf['singleImage']   = $this->getFlexformData('general', 'singleImage', ($this->lConf['view'] == 'single'));
+			$this->lConf['singleFrames']  = $this->getFlexformData('general', 'singleFrames', ($this->lConf['view'] == 'single'));
+			$this->lConf['singleColumns'] = $this->getFlexformData('general', 'singleColumns', ($this->lConf['view'] == 'single'));
+			$this->lConf['panoramaImage'] = $this->getFlexformData('general', 'panoramaImage', ($this->lConf['view'] == 'panorama'));
 			$this->lConf['imagewidth']    = $this->getFlexformData('general', 'imagewidth');
 			$this->lConf['imageheight']   = $this->getFlexformData('general', 'imageheight');
 
@@ -105,6 +108,15 @@ class tx_jf360shots_pi1 extends tslib_pibase
 			}
 			if ($this->lConf['imagepath']) {
 				$this->conf['config.']['imagepath'] = $this->lConf['imagepath'];
+			}
+			if ($this->lConf['singleImage']) {
+				$this->conf['config.']['singleImage'] = $this->lConf['singleImage'];
+			}
+			if ($this->lConf['singleFrames']) {
+				$this->conf['config.']['singleFrames'] = $this->lConf['singleFrames'];
+			}
+			if ($this->lConf['singleColumns']) {
+				$this->conf['config.']['singleColumns'] = $this->lConf['singleColumns'];
 			}
 			if ($this->lConf['panoramaImage']) {
 				$this->conf['config.']['panoramaImage'] = $this->lConf['panoramaImage'];
@@ -192,7 +204,34 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		$GLOBALS['TSFE']->register['imagewidth']  = $this->conf['config.']['imagewidth'];
 		$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
 
-		if ($view == 'panorama') {
+		if ($view == 'single') {
+			if (t3lib_div::getFileAbsFileName($dir . $this->conf['config.']['singleImage'])) {
+				$GLOBALS['TSFE']->register['file'] = trim($dir . $this->conf['config.']['singleImage']);
+			} else {
+				$GLOBALS['TSFE']->register['file'] = trim($this->conf['config.']['singleImage']);
+			}
+			$imageRes   = $this->cObj->IMG_RESOURCE($this->conf['views.'][$view.'.']['image.']);
+			$options['image'] = "image: '" . $imageRes . "'";
+			if (is_numeric($this->conf['config.']['singleFrames']) && is_numeric($this->conf['config.']['singleColumns'])) {
+				$options['frames']  = "frames: " . $this->conf['config.']['singleFrames'];
+				$options['footage'] = "footage: " . $this->conf['config.']['singleColumns'];
+			} else {
+				// try to calculate the frames and columns
+				$countX = 1;
+				if ($GLOBALS['TSFE']->lastImgResourceInfo[0] && $this->conf['config.']['imagewidth']) {
+					$countX = $GLOBALS['TSFE']->lastImgResourceInfo[0] / $this->conf['config.']['imagewidth'];
+				}
+				$countY = 1;
+				if ($GLOBALS['TSFE']->lastImgResourceInfo[1] && $this->conf['config.']['imageheight']) {
+					$countY = $GLOBALS['TSFE']->lastImgResourceInfo[1] / $this->conf['config.']['imageheight'];
+				}
+				$options['frames']  = "frames: " . $countX * $countY;
+				$options['footage'] = "footage: " . $countX;
+			}
+			// generating the preview image
+			$previewRes = $this->cObj->IMG_RESOURCE($this->conf['views.'][$view.'.']['previewimage.']);
+			$GLOBALS['TSFE']->register['previewimage'] = $previewRes;
+		} elseif ($view == 'panorama') {
 			if (t3lib_div::getFileAbsFileName($dir . $this->conf['config.']['panoramaImage'])) {
 				$GLOBALS['TSFE']->register['file'] = trim($dir . $this->conf['config.']['panoramaImage']);
 			} else {
