@@ -18,14 +18,14 @@
  * ===========
  * 360° projection plugin for jQuery
  *
- * @license Copyright (c) 2009-2011 Petr Vostrel (http://petr.vostrel.cz/)
+ * @license Copyright (c) 2009-2012 Petr Vostrel (http://petr.vostrel.cz/)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
  *
  * jQuery Reel
  * http://jquery.vostrel.cz/reel
- * Version: 1.1.3
- * Updated: 2011-05-08
+ * Version: 1.1.4
+ * Updated: 2012-02-27
  *
  * Requires jQuery 1.4.2 or higher
  */
@@ -47,7 +47,7 @@
 jQuery.reel || (function($, window, document, undefined){
 
   $.reel= {
-    version: '1.1.3',
+    version: '1.1.4',
 
     // Options defaults
     def: {
@@ -148,8 +148,7 @@ jQuery.reel || (function($, window, document, undefined){
         },
 
         // Events & handlers
-        on= {
-          setup: function(e){
+          setup= function(e){
           /*
           - fills up the data storage with values based on options
           - binds to ticker
@@ -206,8 +205,9 @@ jQuery.reel || (function($, window, document, undefined){
             });
             pool.bind(_tick_, on.tick);
             cleanup.call(e);
-            t.trigger('start');
+            t.trigger('setup');
           },
+        on= {
           teardown: function(e){
           /*
           - unbinds events, erases all state data
@@ -239,7 +239,7 @@ jQuery.reel || (function($, window, document, undefined){
             .unbind(_mouseup_).unbind(_mousemove_);
             cleanup.call(e);
           },
-          start: function(e){
+          setup: function(e){
           /*
           - binds all mouse/touch events (namespaced)
           - prepares stage overlay elements
@@ -497,7 +497,7 @@ jQuery.reel || (function($, window, document, undefined){
           - detects motion direction
           - nullifies the velocity
           */
-            if (!opt.wheelable) return cleanup.call(e);
+            if (!opt.wheelable || !distance) return cleanup.call(e);
             var
               delta= ceil(sqrt(abs(distance)) / 2),
               delta= negative_when(delta, distance > 0),
@@ -656,7 +656,7 @@ jQuery.reel || (function($, window, document, undefined){
         },
         slidable= true,
         stage_pool= $.browser.opera ? pool : $.unique(pool.add(window.top.document))
-      on.setup();
+      setup();
     });
 
     ticker= ticker || (function tick(){

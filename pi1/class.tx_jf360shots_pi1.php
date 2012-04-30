@@ -325,7 +325,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		// checks if t3jquery is loaded
 		if (T3JQUERY === TRUE) {
 			tx_t3jquery::addJqJS();
-			if ($this->conf['config.']['wheelable'] && t3lib_div::int_from_ver($this->pagerenderer->getExtensionVersion('t3jquery')) <= 1010003) {
+			if ($this->conf['config.']['wheelable'] && t3lib_utility_VersionNumber::convertVersionNumberToInteger($this->pagerenderer->getExtensionVersion('t3jquery')) <= 1010003) {
 				$this->pagerenderer->addJsFile($this->conf['jQueryMouseWheel']);
 			}
 		} else {
