@@ -27,7 +27,6 @@
  * Hint: use extdeveval to insert/update function index above.
  */
 
-require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('jf360shots').'lib/class.tx_jf360shots_pagerenderer.php');
 
 /**
@@ -181,7 +180,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		if ($dir == '') {
 			$dir = $this->imageDir;
 		}
-
+		
 		// define the contentKey if not exist
 		if ($this->contentKey == '') {
 			$this->contentKey = "jf360shots_key";
@@ -203,7 +202,7 @@ class tx_jf360shots_pi1 extends tslib_pibase
 		$GLOBALS['TSFE']->register['key'] = $this->contentKey;
 		$GLOBALS['TSFE']->register['imagewidth']  = $this->conf['config.']['imagewidth'];
 		$GLOBALS['TSFE']->register['imageheight'] = $this->conf['config.']['imageheight'];
-
+		
 		if ($view == 'single') {
 			if (t3lib_div::getFileAbsFileName($dir . $this->conf['config.']['singleImage'])) {
 				$GLOBALS['TSFE']->register['file'] = trim($dir . $this->conf['config.']['singleImage']);
